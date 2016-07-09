@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
             generateNum.setText(generateNum.getText() + num);
             changeLabel(view);
         }
+
+        //findViewById(R.id.imageView).setVisibility(View.INVISIBLE);
+
     }
 
     public void one(View view){
@@ -88,6 +91,12 @@ public class MainActivity extends AppCompatActivity {
         // エディットテキストのテキストを取得します
 
         String str = generateNum.getText().toString();
+
+        if(str.equals("7163")) {
+            // 文字枠の非表示
+            //findViewById(R.id.imageView).setVisibility(View.VISIBLE);
+
+        }
 
         if(str != null && str.length() > 0) {
             generateNum.setText(str.substring(0, str.length() - 1));
