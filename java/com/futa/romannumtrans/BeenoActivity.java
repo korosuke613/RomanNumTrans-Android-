@@ -1,5 +1,6 @@
 package com.futa.romannumtrans;
 
+// 呼び出し方
 //      Intent intent = new Intent(this, BeenoActivity.class);
 //      startActivity(intent);
 
