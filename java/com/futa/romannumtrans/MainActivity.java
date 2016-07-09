@@ -1,57 +1,76 @@
 package com.futa.romannumtrans;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private View mFocusView;
+    /** スレッドUI操作用ハンドラ */
+    private Handler mHandler = new Handler();
+    /** テキストオブジェクト */
+    private Runnable deleteBeeno;
+    /** 結果表示フラッグ */
+    private boolean changeFlag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
-
 
     public void changeLabel(View view){
         TextView generateNum = (TextView) findViewById(R.id.generateNum);
         // エディットテキストのテキストを取得します
         String text = generateNum.getText().toString();
-        if(text == null || text.length() == 0)return;
+        if(text.length() == 0)return;
         int num = Integer.parseInt(text);
+        TextView resultNum = (TextView)findViewById(R.id.resultNum);
 
+        if(num == 7163 ) {
+            // ビーノの表示プロセス
+            findViewById(R.id.beeno).setVisibility(View.VISIBLE);
+            generateNum.setText(R.string.space);
+            resultNum.setText(R.string.beeno);
 
+            //ビーノ画像呼び出し
+            deleteBeeno = new Runnable() {
+                public void run() {
+                    findViewById(R.id.beeno).setVisibility(View.INVISIBLE);
+                    mHandler.removeCallbacks(deleteBeeno);
+                }
+            };
+            mHandler.postDelayed(deleteBeeno, 400);
 
-        String tex2;
-        if(new RomanNumTrans().rCheck(num)) {
-            tex2 = new RomanNumTrans().rTrans(num);
-        }else{
-            tex2 = "Error";
+        }else {
+            if (new RomanNumTrans().rCheck(num)) {
+                resultNum.setText(new RomanNumTrans().rTrans(num));
+            } else {
+                resultNum.setText(R.string.error);
+                changeFlag = true;
+            }
         }
-        TextView resultTV = (TextView)findViewById(R.id.resultNum);
-        resultTV.setText(tex2);
+        changeFlag = true;
 
     }
 
     private void add(View view, String num){
         TextView generateNum = (TextView) findViewById(R.id.generateNum);
         // エディットテキストのテキストを取得します
-        String str = generateNum.getText().toString();
 
-        if(str.length() < 4) {
-            generateNum.setText(generateNum.getText() + num);
-            changeLabel(view);
+        if(changeFlag == true){
+            TextView resultNum = (TextView) findViewById(R.id.resultNum);
+            resultNum.setText("");
+            generateNum.setText("");
+            changeFlag = false;
         }
 
-        //findViewById(R.id.imageView).setVisibility(View.INVISIBLE);
+        String str = generateNum.getText().toString();
+        if(str.length() < 4) {
+            generateNum.setText(generateNum.getText() + num);
+        }
 
     }
 
@@ -92,15 +111,14 @@ public class MainActivity extends AppCompatActivity {
 
         String str = generateNum.getText().toString();
 
-        if(str.equals("7163")) {
-            // 文字枠の非表示
-            //findViewById(R.id.imageView).setVisibility(View.VISIBLE);
+        if(changeFlag == true){
+            TextView resultNum = (TextView) findViewById(R.id.resultNum);
+            resultNum.setText("");
+            generateNum.setText("");
+            changeFlag = false;
 
-        }
-
-        if(str != null && str.length() > 0) {
+        }else if(str.length() > 0) {
             generateNum.setText(str.substring(0, str.length() - 1));
-            changeLabel(view);
         }
     }
 

@@ -25,7 +25,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/generateNum"
-        android:text="1000"
         android:textSize="35sp"
         android:textIsSelectable="true"
         android:focusable="true"
@@ -170,7 +169,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" BS "
+        android:text="BS"
         android:id="@+id/buttonBS"
         android:textSize="35sp"
         android:layout_below="@+id/button8"
@@ -184,7 +183,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/resultNum"
-        android:text="M"
         android:textSize="35sp"
         android:textIsSelectable="true"
         android:focusable="true"
@@ -216,9 +214,26 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/imageView"
-        android:src="@drawable/beeno"
-        android:visibility="invisible"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/beeno"
+        android:src="@drawable/beeno_resize"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:translationZ="2dp"
+        android:visibility="invisible" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK "
+        android:id="@+id/buttonOK"
+        android:textSize="35sp"
+        android:onClick="changeLabel"
+        android:layout_below="@+id/button8"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textAlignment="center" />
 
 </RelativeLayout>

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">RomanNumTrans</string>
+    <string name="beeno">張っ倒すぞ</string>
+    <string name="space">""</string>
+    <string name="error">Error</string>
+    <string name="beeno_mid">7163</string>
+
+
 </resources>
